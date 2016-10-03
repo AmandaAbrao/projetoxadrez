@@ -13,7 +13,7 @@ namespace aula_vinte_e_nove {
                     }
 
                     else {
-                        Console.WriteLine(tab.peca(i, j) + " ");
+                        Console.Write(tab.peca(i, j) + " ");
 
                     }
                 }
