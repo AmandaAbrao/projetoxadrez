@@ -79,7 +79,7 @@ namespace xadrez {
 
         public void validarPosicaoDeDestino(Posicao origem, Posicao destino) {
             if (!tab.peca(origem).podeMoverPara(destino)) {
-                throw new TabuleiroException("Podição de destino inválida!");
+                throw new TabuleiroException("Posição de destino inválida!");
             }
         }
 
@@ -143,14 +143,26 @@ namespace xadrez {
             if (R == null) {
                 throw new TabuleiroException("Não tem rei da cor " + cor + " no tabuleiro");
             }
-            foreach (Peca x in pecasEmJogo(adversaria(cor))) {
+
+            foreach (Peca x in pecasEmJogo(cor)) {
                 bool[,] mat = x.movimentosPossiveis();
-                if (mat[R.posicao.linha, R.posicao.coluna]) { 
-                    return true;
+                for (int i = 0; i < tab.linhas; i++) {
+                    for (int j = 0; j < tab.colunas; j++) {
+                        if (mat[i, j]) {
+                            Posicao origem = x.posicao;
+                            Posicao destino = new Posicao(i, j);
+                            Peca pecaCapturada = executaMovimento(origem, destino);
+                            bool testeXeque = estaEmXeque(cor);
+                            desfazMovimento(origem, destino, pecaCapturada);
+                            if (!testeXeque) {
+                                return false;
+                            }
+                        }
+                    }
+                }
             }
+            return true;
         }
-        return false;
-    }
 
 
         public void colocarNovaPeca(char coluna, int linha, Peca peca) {

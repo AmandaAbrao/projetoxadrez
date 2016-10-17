@@ -51,7 +51,7 @@ namespace xadrez {
                 if (tab.peca(pos) != null && tab.peca(pos).cor != cor) {
                     break;
                 }
-                pos.linha = pos.linha + 1;
+                pos.coluna = pos.coluna + 1;
             }
 
 
@@ -62,7 +62,7 @@ namespace xadrez {
                 if (tab.peca(pos) != null && tab.peca(pos).cor != cor) {
                     break;
                 }
-                pos.linha = pos.linha - 1;
+                pos.coluna = pos.coluna - 1;
             }
 
             return mat;
